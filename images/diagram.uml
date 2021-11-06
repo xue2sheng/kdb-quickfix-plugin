@@ -1,0 +1,44 @@
+// plantuml.com
+@startuml
+!include <office/Servers/application_server>
+!include <office/Servers/database_server>
+
+nwdiag {
+
+  group {
+    color = "#FFAA00";
+    description = "extended <b>KDB</b>";
+    quickfix_plugin;
+    q_tests;
+    web_plugin;
+  }
+
+  group {
+    color = "#FFAAFF";
+    description = "FIX <b>protocol</b>";
+    clients;
+    tester0;
+  }
+ 
+  network external {
+    clients [description="<$application_server>\nclient\napplication"];
+    tester0 [description="<&person*5>\nhuman\ntester"];
+    quickfix_plugin [description="<&cog*5>\nquickfix\nplugin"];
+    }
+ 
+  network internal {
+    q_tests [description="<&spreadsheet*5>\nkdb+ tests"];
+    quickfix_plugin;
+    web_plugin [description="<&cog*5>\nweb\nplugin"];
+    tester1 [description="<&person*5>\nhuman\ntester"];
+    tester2 [description="<$database_server>\ntesting\nscript"];
+
+	  group {
+	    color = "#FFAAFF";
+	    description = "web <b>protocols</b>";
+	    tester1;
+	    tester2; 
+	  }
+    }
+}
+@enduml
