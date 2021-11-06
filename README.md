@@ -1,2 +1,2 @@
 # kdb-quickfix-plugin
-Plugin to test FIX application from kdb+
+Plugin to test FIX applications from kdb+
