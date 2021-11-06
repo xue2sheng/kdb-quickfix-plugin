@@ -33,3 +33,12 @@
 
 # cmake
 **/build/
+**/tmp/
+
+# openssl
+include/openssl
+include/crypto
+include/internal
+lib/libcrypto.a
+lib/libssl.a
+
