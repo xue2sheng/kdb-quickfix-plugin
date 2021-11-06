@@ -6,6 +6,7 @@ Plugin to test FIX applications from kdb+
 # External dependencies 
 This project depends on several libraries and frameworks, among them:
 
+- [kdb+](https://kx.com)
 - [Openssl](https://www.openssl.org)
 - [Asio](https://think-async.com/Asio)
 - [CppServer](https://github.com/chronoxor/CppServer)
