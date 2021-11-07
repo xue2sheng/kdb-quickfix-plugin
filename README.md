@@ -9,6 +9,6 @@ This project depends on several libraries and frameworks, among them:
 - [kdb+](https://kx.com)
 - [Openssl](https://www.openssl.org)
 - [Asio](https://think-async.com/Asio)
-- [CppServer](https://github.com/chronoxor/CppServer)
 - [Quickfix](https://github.com/quickfix/quickfix) 
 - [Quickfix-messenger](https://github.com/jramoyo/quickfix-messenger)
+- [kdbplus](https://crates.io/crates/kdbplus)
