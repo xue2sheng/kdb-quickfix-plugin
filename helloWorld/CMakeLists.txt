@@ -3,8 +3,11 @@
 # RHEL8 --> toolser-10 installed and enabled
 # scl enable gcc-toolset-10 bash
 #
-# Windows --> latest mingw from https://winlibs.com/
+# Windows without VS --> latest mingw from https://winlibs.com/
 # UCRT Win64 for at least gcc 11.2.0 in your path
+#
+# Windows with VS --> latest VS2020
+# open your Develper Powershell VS2020 terminal
 #
 # Archlinux --> my usual dev distro
 # do nothing
@@ -19,6 +22,10 @@
 # cmake --build .
 # cmake --install .
 #
+# cmake .. -G "Visual Studio 17 2022" -D CMAKE_BUILD_TYPE=Release
+# cmake --build .
+# cmake --install .
+#
 cmake_minimum_required(VERSION 3.18)
 project(HelloWorld)
 
@@ -29,12 +36,12 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # you might want to cp -r the root include on your local source folder instead
 include_directories(${PROJECT_SOURCE_DIR}/../include)
+file(GLOB MY_SOURCES *.cpp)
 
 if(WIN32)
 	# using gendef.exe tool to generate .def out of .dll
-	file(GLOB MY_SOURCES *.cpp libHelloWorld.def)
-else()
-	file(GLOB MY_SOURCES *.cpp)
+	link_directories(${PROJECT_SOURCE_DIR}/../lib)
+	set(CMAKE_LINK_DEF_FILE_FLAG "/DEF:libHelloWorld.def")
 endif()
 
 add_library(${PROJECT_NAME} SHARED ${MY_SOURCES})
@@ -45,8 +52,13 @@ add_compile_options(-Wall -Werror $<$<CONFIG:RELEASE>:-O3> $<$<CONFIG:DEBUG>-O0>
 
 if(WIN32)
     target_compile_options(${PROJECT_NAME} PRIVATE -DKXVER=4)
-    # you might want to cp -r the root lib on your local folder instead
-    target_link_libraries(${PROJECT_NAME} PUBLIC "-L${PROJECT_SOURCE_DIR}/../lib -l:est_static.lib -lmsvcr100 -lkernel32 -lws2_32  -liphlpapi -static-libgcc -static-libstdc++")
+    if ("${CMAKE_GENERATOR}" STREQUAL "Visual Studio 17 2022")
+	    target_link_libraries(${PROJECT_NAME} PUBLIC "est")
+    elseif ("${CMAKE_GENERATOR}" STREQUAL "MinGW Makefiles")
+	    target_link_libraries(${PROJECT_NAME} PUBLIC "-l:est_static.lib -lmsvcr100 -lkernel32 -lws2_32  -liphlpapi -static-libgcc -static-libstdc++")
+    else()
+	message(FATAL_ERROR "Unsupported Windows Generator")
+    endif()
     message(STATUS "Windows build with CXX=${CMAKE_CXX_COMPILER}")
 endif(WIN32)
 
@@ -57,7 +69,10 @@ if(UNIX AND NOT APPLE)
 endif(UNIX AND NOT APPLE)
 
 # depends on your local kdb configuration
-if (DEFINED ENV{QHOME} AND DEFINED ENV{QARCH})
+
+if ("${CMAKE_GENERATOR}" STREQUAL "Visual Studio 17 2022")
+	message(STATUS "Proceed to manually install the library once built in your Debug or Release folder")
+elseif (DEFINED ENV{QHOME} AND DEFINED ENV{QARCH})
 	file(TO_CMAKE_PATH "$ENV{QHOME}/$ENV{QARCH}" LIB_DESTINATION)
 	install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION ${LIB_DESTINATION} RUNTIME DESTINATION ${LIB_DESTINATION} ARCHIVE DESTINATION ${LIB_DESTINATION})
 elseif (DEFINED LIB_DESTINATION)
