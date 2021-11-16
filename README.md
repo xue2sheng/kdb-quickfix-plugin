@@ -7,6 +7,7 @@ Plugin to test FIX applications from kdb+
 This project depends on several libraries and frameworks, among them:
 
 - [kdb+](https://kx.com)
+- [kdb+ c client](https://code.kx.com/q/interfaces/c-client-for-q)
 - [Openssl](https://www.openssl.org)
 - [Asio](https://think-async.com/Asio)
 - [Quickfix](https://github.com/quickfix/quickfix) 

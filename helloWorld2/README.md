@@ -6,3 +6,7 @@ Before invoking ./build.sh you'd need *rust* installed and its *cargo* target **
 
 ## Test
 Once the shared library has been installed at *q binary folder*, the helper script [helloWorld2.q](helloWorld2.q) should be used to test.
+
+## Windows
+
+Using mingw64 gcc, we should generate the usual .def file with "gendef"
