@@ -37,8 +37,8 @@
 
 # openssl
 include/openssl
-lib/libcrypto.a
-lib/libssl.a
+lib/libcrypto*
+lib/libssl*
 
 # quickfix
 include/quickfix
