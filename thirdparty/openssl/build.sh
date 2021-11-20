@@ -8,9 +8,10 @@ cd openssl-3.0.0
 make -j 4
 #make test
 
-ln -s include/crypto ../../../../include
-ln -s include/openssl ../../../../include
-ln -s include/internal ../../../../include
-ln -s libssl.a ../../../../lib
-ln -s libcrypto.a  ../../../../lib
+cp libssl.a ../../../../lib
+cp libcrypto.a  ../../../../lib
+
+rm -rf ../../../../include/crypto && cp -r include/crypto ../../../../include
+rm -rf ../../../../include/openssl && cp -r include/openssl ../../../../include
+rm -rf ../../../../include/internal && cp -r include/internal ../../../../include
 
