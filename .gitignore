@@ -37,10 +37,12 @@
 
 # openssl
 include/openssl
-include/crypto
-include/internal
 lib/libcrypto.a
 lib/libssl.a
+
+# quickfix
+include/quickfix
+lib/libquickfix*
 
 # kdbplus
 **/target
