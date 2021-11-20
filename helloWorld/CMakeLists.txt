@@ -18,11 +18,11 @@
 # make install 
 #
 # Windows example:
-# cmake .. -G "MinGW Makefiles" -D CMAKE_BUILD_TYPE=Release
-# cmake --build .
+# cmake .. -G "MinGW Makefiles"
+# cmake --build . --config Release
 # cmake --install .
 #
-# cmake .. -G "Visual Studio 17 2022" -D CMAKE_BUILD_TYPE=Release
+# cmake .. -G "Visual Studio 17 2022" -DCMAKE_BUILD_TYPE=Release
 # cmake --build .
 # cmake --install .
 #
